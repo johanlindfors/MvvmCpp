@@ -2,10 +2,6 @@
 
 namespace Common
 {
-	/// <summary> 
-	/// Value converter that translates true to <see cref="Visibility::Visible"/> and false 
-	/// to <see cref="Visibility::Collapsed"/>. 
-	/// </summary> 
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class BooleanToVisibilityConverter sealed : Windows::UI::Xaml::Data::IValueConverter
 	{

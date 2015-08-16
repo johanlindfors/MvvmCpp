@@ -13,6 +13,8 @@ using namespace Windows::UI::Xaml::Data;
 using namespace Windows::UI::Xaml::Input;
 
 using namespace concurrency;
+using namespace std::chrono;
+using namespace std::literals;
 
 MainViewModel::MainViewModel()
 {
@@ -44,43 +46,14 @@ ICommand^ MainViewModel::ButtonClickCommand::get()
 	return m_ButtonClickCommand;
 }
 
-// Creates a task that completes after the specified delay.
-task<void> delay(unsigned int timeout)
-{
-	// A task completion event that is set when a timer fires .
-	task_completion_event<void> tce;
-
-	// Create a non-repeating timer.
-	auto fire_once = new timer<int>(timeout, 0, nullptr, false);
-	// Create a call object that sets the completion event after the timer fires.
-	auto callback = new call<int>([tce](int)
-	{
-		tce.set();
-	});
-
-	// Connect the timer to the callback and start the timer.
-	fire_once->link_target(callback);
-	fire_once->start();
-
-	// Create a task that completes after the completion event is set.
-	task<void> event_set(tce);
-
-	// Create a continuation task that cleans up resources and
-	// return that continuation task.
-	return event_set.then([callback, fire_once]()
-	{
-		delete callback;
-		delete fire_once;
-	});
-}
-
 void MainViewModel::OnButtonClicked(Object^ parameter)
 {
 	try {
 		IsBusy = true;
 
-		delay(2500).then([=]() {
+		create_task([=](){
 			try {
+				this_thread::sleep_for(seconds(2));
 				IsBusy = false;
 			}
 			catch (Exception^ innerException) {
@@ -98,7 +71,7 @@ void MainViewModel::OnButtonClicked(Object^ parameter)
 			IsBusy = false;
 		}, task_continuation_context::use_current());
 	}
-	catch (Exception^ exception) {
+	catch (Exception^ outerException) {
 
 	}
 }
