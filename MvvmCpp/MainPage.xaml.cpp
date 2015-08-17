@@ -25,6 +25,8 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 
-	auto viewModel = dynamic_cast<MainViewModel^>(DataContext);
+	//DataContext = ref new MainViewModel();
+
+	auto viewModel = dynamic_cast<IMainViewModel^>(DataContext);
 	viewModel->Title = "// coderox";
 }

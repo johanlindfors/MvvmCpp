@@ -4,9 +4,16 @@
 
 namespace MvvmCpp
 {
+	public interface class IMainViewModel {
+		property Platform::String^ Title {
+			Platform::String^ get();
+			void set(Platform::String^ value);
+		}
+	};
+
 	[Windows::UI::Xaml::Data::Bindable]
 	[Windows::Foundation::Metadata::WebHostHidden]
-	public ref class MainViewModel sealed : public Common::ViewModelBase
+	public ref class MainViewModel sealed : public Common::ViewModelBase, public IMainViewModel
 	{
 	internal:
 		MainViewModel();
@@ -21,8 +28,8 @@ namespace MvvmCpp
 
 		property Platform::String^ Title
 		{
-			Platform::String^ get();
-			void set(Platform::String^ value);
+			virtual Platform::String^ get();
+			virtual void set(Platform::String^ value);
 		}
 
 		bool IsValid(Platform::Object^ parameter);
