@@ -12,9 +12,9 @@ namespace Common
     public:
         ViewModelLocator();
 
-		property MvvmCpp::MainViewModel^ MainViewVM { MvvmCpp::MainViewModel^ get(); }
+		property MvvmCpp::IMainViewModel^ MainViewVM { MvvmCpp::IMainViewModel^ get(); }
         
     private:
-		MvvmCpp::MainViewModel^ mMainViewVM;
+		MvvmCpp::IMainViewModel^ mMainViewVM;
     };
 }

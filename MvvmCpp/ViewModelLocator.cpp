@@ -8,7 +8,7 @@ ViewModelLocator::ViewModelLocator()
 {
 }
 
-MainViewModel^ ViewModelLocator::MainViewVM::get()
+IMainViewModel^ ViewModelLocator::MainViewVM::get()
 {
 	if (mMainViewVM == nullptr) {
 		mMainViewVM = ref new MainViewModel();
