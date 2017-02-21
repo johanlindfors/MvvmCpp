@@ -20,6 +20,22 @@ namespace Common
 
 	protected private:
 
+		template<typename T>
+		void SetProperty(T& store, T const value, Platform::String^ propertyName = "") {
+			if (store != value)
+			{
+				T oldValue = store;
+				try {
+					store = value;
+					OnPropertyChanged(propertyName);
+				}
+				catch (Exception^ ex) {
+					store = oldValue;
+					throw ex;
+				}
+			}
+		}
+
 		bool m_isBusy;
 	};
 }

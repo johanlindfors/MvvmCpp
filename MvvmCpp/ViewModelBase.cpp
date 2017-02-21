@@ -19,18 +19,7 @@ bool ViewModelBase::IsBusy::get()
 
 void ViewModelBase::IsBusy::set(bool value)
 {
-	if (m_isBusy != value)
-	{
-		bool oldValue = m_isBusy;
-		try {
-			m_isBusy = value;
-			OnPropertyChanged("IsBusy");
-		}
-		catch (Exception^ ex) {
-			m_isBusy = oldValue;
-			throw ex;
-		}
-	}
+	SetProperty(m_isBusy, value, "IsBusy");
 }
 
 void ViewModelBase::OnNavigatedTo(NavigationEventArgs^ e)

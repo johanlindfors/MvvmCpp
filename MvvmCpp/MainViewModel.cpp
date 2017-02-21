@@ -34,11 +34,7 @@ String^ MainViewModel::Title::get()
 
 void MainViewModel::Title::set(String^ value)
 {
-	if (m_title != value)
-	{
-		m_title = value;
-		OnPropertyChanged("Title");
-	}
+	SetProperty(m_title, value, "Title");
 }
 
 ICommand^ MainViewModel::ButtonClickCommand::get()
